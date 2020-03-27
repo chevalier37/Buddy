@@ -11,8 +11,7 @@ import javax.persistence.Table;
 @Table(name = "bank_account")
 public class BankAccount {
 
-	public BankAccount(int id, int user_id, int amount, String type) {
-		this.id = id;
+	public BankAccount(int user_id, int amount, String type) {
 		this.user_id = user_id;
 		this.amount = amount;
 		this.type = type;
