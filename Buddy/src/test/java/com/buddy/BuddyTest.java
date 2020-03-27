@@ -4,24 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import com.buddy.model.BankAccount;
 import com.buddy.model.Connection;
 import com.buddy.model.User;
+import com.buddy.service.BuddyService;
 
 @SpringBootTest
 public class BuddyTest {
 	
+	@Autowired
+	private BuddyService buddyService;
+	
 	@Test
 	@DisplayName("register user")
 	public void registerUserTest() {
-		User userTest = new User("Sam", "TODD", "s.todd@gmail.com", "123", 0);
-		addUser(userTest);
-		
-		User findUser = findUser(userTest);
-		
-		assertEquals(userTest, findUser);
+		//User userTest = buddyService.addUser("Sam", "TODD1", "s.todd@gmail.com", "123");
+		User findUser = buddyService.findUser("TODD");
+
+		assertEquals(findUser.getLastname(), "TODD");
 	}
 	
 	@Test

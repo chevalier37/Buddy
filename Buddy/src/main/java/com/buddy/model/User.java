@@ -3,6 +3,7 @@ package com.buddy.model;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user")
 public class User {
+	
+	public User() {
+	}
 	
 	public User(String firstname, String lastname, String email, String password, int wallet) {
 		this.firstname = firstname;
@@ -40,16 +44,12 @@ public class User {
 	@Column(name = "wallet")
     private int wallet;
 	
-	private List<User> connection;
+	
+	
 	
 
-	public List<User> getConnection() {
-		return connection;
-	}
-
-	public void setConnection(List<User> connection) {
-		this.connection = connection;
-	}
+	
+	
 
 	public int getId() {
 		return id;
@@ -98,7 +98,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", password=" + password + ", wallet=" + wallet + ", connection=" + connection + "]";
+				+ ", password=" + password + ", wallet=" + wallet + "]";
 	}
+
+
 
 }
