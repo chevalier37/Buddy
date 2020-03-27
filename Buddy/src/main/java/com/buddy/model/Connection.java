@@ -11,8 +11,7 @@ import javax.persistence.Table;
 @Table(name = "connections")
 public class Connection {
 
-	public Connection(int id, int from_id, int to_id) {
-		this.id = id;
+	public Connection(int from_id, int to_id) {
 		this.from_id = from_id;
 		this.to_id = to_id;
 	}
@@ -29,10 +28,6 @@ public class Connection {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public int getFrom_id() {

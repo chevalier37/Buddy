@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.buddy.model.BankAccount;
+import com.buddy.model.Connection;
 import com.buddy.model.User;
 
 @SpringBootTest
@@ -68,6 +69,30 @@ public class BuddyTest {
 		
 		assertEquals(findUser.getWallet(), 10);
 	}
+	
+	@Test
+	@DisplayName("add connexion")
+	public void addConnexionTest() {
+		User userTest1 = new User("Sam", "TODD", "s.todd@gmail.com", "123", 0);
+		addUser(userTest1);
+		User userTest2 = new User("Samy", "TODDy", "sy.todd@gmail.com", "1234", 0);
+		addUser(userTest2);
+		
+		User findUser1 = findUser(userTest);
+		int id1 = findUser1.getId();
+		
+		User findUser2 = findUser(userTest);
+		int id2 = findUser2.getId();
+		
+		Connection connection = new Connection(id1, id2);
+		
+		Connection searchConnection = getConnection(id1);
+		int getId2 = searchConnection.getTo_id();
+		
+		assertEquals(id2, getId2);
+	}
+	
+	
 	
 	
 	
