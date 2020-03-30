@@ -11,13 +11,15 @@ import javax.persistence.Table;
 @Table(name = "transaction")
 public class Transaction {
 	
-	public Transaction(int id, int from_id, int to_id, int amount, String description) {
-		super();
-		this.id = id;
+	public Transaction(int from_id, int to_id, int amount, String description) {
 		this.from_id = from_id;
 		this.to_id = to_id;
 		this.amount = amount;
 		this.description = description;
+	}
+	
+	public Transaction() {
+	
 	}
 
 	@Id

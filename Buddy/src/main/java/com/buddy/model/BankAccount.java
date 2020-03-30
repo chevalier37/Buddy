@@ -16,6 +16,9 @@ public class BankAccount {
 		this.amount = amount;
 		this.type = type;
 	}
+	
+	public BankAccount() {
+	}
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

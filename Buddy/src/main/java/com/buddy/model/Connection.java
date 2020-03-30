@@ -15,6 +15,9 @@ public class Connection {
 		this.from_id = from_id;
 		this.to_id = to_id;
 	}
+	
+	public Connection() {
+	}
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

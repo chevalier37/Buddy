@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,14 +18,19 @@ public class User {
 	public User() {
 	}
 	
-	public User(String firstname, String lastname, String email, String password, int wallet) {
+	
+	public User(String firstname, String lastname, String email, String password, int wallet, List<User> connection) {
+		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.password = password;
 		this.wallet = wallet;
+		this.connection = connection;
 	}
-	
+
+
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -44,12 +50,19 @@ public class User {
 	@Column(name = "wallet")
     private int wallet;
 	
+	@OneToMany(mappedBy = "connection")
+    private List<User> connection;
 	
 	
-	
+	public List<User> getConnection() {
+		return connection;
+	}
 
-	
-	
+
+	public void setConnection(List<User> connection) {
+		this.connection = connection;
+	}
+
 
 	public int getId() {
 		return id;
@@ -100,6 +113,8 @@ public class User {
 		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
 				+ ", password=" + password + ", wallet=" + wallet + "]";
 	}
+
+	
 
 
 
