@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "bank_account")
 public class BankAccount {
 
-	public BankAccount(int user_id, int amount, String type) {
+	public BankAccount(int user_id, Double amount, String type) {
 		this.user_id = user_id;
 		this.amount = amount;
 		this.type = type;
@@ -21,14 +21,14 @@ public class BankAccount {
 	}
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "user_id", nullable = false)
     private int user_id;
 	
 	@Column(name = "amount", nullable = false)
-    private int amount;
+    private Double amount;
 	
 	@Column(name = "type", nullable = false)
     private String type;
@@ -45,11 +45,11 @@ public class BankAccount {
 		this.user_id = user_id;
 	}
 
-	public int getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 

@@ -35,6 +35,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.jacoco</groupId>
+		    <artifactId>jacoco-maven-plugin</artifactId>
+		    <version>0.8.5</version>
+		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -61,15 +67,127 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		 <groupId>com.github.ulisesbocchio</groupId>
+		 <artifactId>jasypt-spring-boot-starter</artifactId>
+		 <version>3.0.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
+		      <groupId>com.github.ulisesbocchio</groupId>
+		      <artifactId>jasypt-maven-plugin</artifactId>
+		      <version>3.0.2</version>
+		    </plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.2.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <excludes>
+                                <exclude>none</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/*IT.java</include>
+                            </includes>
+                            <rules>
+                                <requireActiveProfile>
+                                    <profiles>test</profiles>
+                                </requireActiveProfile>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>         
+            <plugin>
+		        <groupId>com.github.spotbugs</groupId>
+		        <artifactId>spotbugs-maven-plugin</artifactId>
+		        <version>3.1.12</version>
+		    </plugin>
 		</plugins>
 	</build>
+	
+	<reporting>
+		    <plugins>
+		      <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-report-plugin</artifactId>
+		        <version>3.0.0-M4</version>
+		      </plugin>
+		      
+		      <plugin>
+		        <groupId>org.jacoco</groupId>
+		        <artifactId>jacoco-maven-plugin</artifactId>
+		        <version>0.8.5</version>
+		        <reportSets>
+		          <reportSet>
+		            <reports>
+		              <report>report</report>
+		            </reports>
+		          </reportSet>
+		        </reportSets>
+		      </plugin>
+		      <plugin>
+		        <groupId>com.github.spotbugs</groupId>
+		        <artifactId>spotbugs-maven-plugin</artifactId>
+		        <version>3.1.12</version>
+		      </plugin>
+		    </plugins>
+	  	</reporting>
 
 </project>

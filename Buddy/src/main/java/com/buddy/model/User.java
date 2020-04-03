@@ -17,10 +17,8 @@ public class User {
 	
 	public User() {
 	}
-	
-	
-	public User(String firstname, String lastname, String email, String password, int wallet, List<User> connection) {
-		super();
+
+	public User(String firstname, String lastname, String email, String password, Double wallet, List<User> connection) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
@@ -29,10 +27,8 @@ public class User {
 		this.connection = connection;
 	}
 
-
-
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "firstname", nullable = false)
@@ -48,7 +44,7 @@ public class User {
     private String password;
 	
 	@Column(name = "wallet")
-    private int wallet;
+    private Double wallet;
 	
 	@OneToMany(mappedBy = "connection")
     private List<User> connection;
@@ -100,11 +96,11 @@ public class User {
 		this.password = password;
 	}
 
-	public int getWallet() {
+	public Double getWallet() {
 		return wallet;
 	}
 
-	public void setWallet(int wallet) {
+	public void setWallet(Double wallet) {
 		this.wallet = wallet;
 	}
 

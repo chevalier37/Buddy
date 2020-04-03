@@ -34,10 +34,10 @@ public class BuddyService {
 	@Autowired
 	private com.buddy.DAO.ConnectionDAO connectionDAO;
 	
-	public User addUser(String firstname, String lastname, String mail, String password, int amount) {
+	public User addUser(String firstname, String lastname, String mail, String password, Double amount) {
 		String hashPassword = passwordEncoder.encode((CharSequence) password);
-		//String hashMail = passwordEncoder.encode( (CharSequence) mail);
-		User creatUser = new User(firstname, lastname, mail, hashPassword, amount, null);
+		String hashMail = passwordEncoder.encode( (CharSequence) mail);
+		User creatUser = new User(firstname, lastname, hashMail, hashPassword, amount, null);
 		userDAO.save(creatUser);
 		return creatUser;		
 	}
@@ -46,21 +46,6 @@ public class BuddyService {
 		return userDAO.getUserByFirstnameAndLastname(firstname, lastname);
 	}
 	
-	public void deleteAllUser() {
-		userDAO.deleteAll();	
-	}
-	
-	public void deleteAllbankAccount() {
-		bankAccountDAO.deleteAll();	
-	}
-	
-	public void deleteAllConnection() {
-		connectionDAO.deleteAll();	
-	}
-	
-	public void deleteAllTransaction() {
-		transactionDAO.deleteAll();	
-	}
 	
 	public boolean isUserLogin(String mail, String password) {
 		User user = userDAO.getUserByEmail(mail);
@@ -82,9 +67,9 @@ public class BuddyService {
 		}
 	}
 	
-	public User payIn(int userId, int amount) {
+	public User payIn(int userId, Double amount) {
 		User user = userDAO.getOne(userId);
-		int newWallet = user.getWallet() + amount;
+		Double newWallet = user.getWallet() + amount;
 		user.setWallet(newWallet);
 		userDAO.save(user);
 		BankAccount  payIn = new BankAccount(userId, amount, "payIn");
@@ -92,10 +77,10 @@ public class BuddyService {
 		return user;
 	}
 	
-	public User payOut(int userId, int amount) {
+	public User payOut(int userId, Double amount) {
 		User user = userDAO.getOne(userId);
-		int amountOut = - amount;
-		int newWallet = user.getWallet() + amountOut;
+		Double amountOut = - amount;
+		Double newWallet = user.getWallet() + amountOut;
 		user.setWallet(newWallet);
 		userDAO.save(user);
 		BankAccount  payIn = new BankAccount(userId, amount, "payOut");
@@ -117,22 +102,24 @@ public class BuddyService {
 		return connectionDAO.getConnectionList(fromId);
 	}
 	
-	public Boolean addTransaction(int fromId, int toId, int amount, String description) {
-		Transaction transaction = new Transaction(fromId, toId, amount, description);
+	public Boolean addTransaction(int fromId, int toId, Double amount, String description) {
+		Double feeBuddy = amount * 0.005;
+		Double amountWallet = amount - feeBuddy;
+		Transaction transaction = new Transaction(fromId, toId, amountWallet, description);
 		transactionDAO.save(transaction);
 		
 		User getFromUser = userDAO.getOne(fromId);
-		int getWalletFrom = getFromUser.getWallet();
+		Double getWalletFrom = getFromUser.getWallet();
 		
 		if(getWalletFrom < amount) {
 			return false;
 		}else {
-			int updateWalletFrom = getWalletFrom - amount;
+			Double updateWalletFrom = getWalletFrom - amount;
 			getFromUser.setWallet(updateWalletFrom);
 			userDAO.save(getFromUser);
 			
 			User getToUser = userDAO.getOne(toId);
-			int updateWalletTo = getToUser.getWallet() + amount;
+			Double updateWalletTo = getToUser.getWallet() + amountWallet;
 			getToUser.setWallet(updateWalletTo);
 			userDAO.save(getToUser);
 			return true;
@@ -142,6 +129,22 @@ public class BuddyService {
 	
 	public List<Transaction> getTransactionList(int fromId){
 		return transactionDAO.getTransactionList(fromId);
+	}
+	
+	public void deleteAllUser() {
+		userDAO.deleteAll();	
+	}
+	
+	public void deleteAllbankAccount() {
+		bankAccountDAO.deleteAll();	
+	}
+	
+	public void deleteAllConnection() {
+		connectionDAO.deleteAll();	
+	}
+	
+	public void deleteAllTransaction() {
+		transactionDAO.deleteAll();	
 	}
 		
 
