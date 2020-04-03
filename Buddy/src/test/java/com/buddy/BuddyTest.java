@@ -12,8 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 
+import com.buddy.DAO.UserDAO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Connection;
 import com.buddy.model.Transaction;
@@ -26,37 +29,51 @@ public class BuddyTest {
 	@Autowired
 	private  BuddyService buddyService;
 	
-	@BeforeEach
-    public void setup() {
-		buddyService.deleteAllbankAccount();
-		buddyService.deleteAllConnection();
-		buddyService.deleteAllTransaction();
-		buddyService.deleteAllUser();
-
-    }
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private UserDAO userDAO;
 	
 	@Test
+	@Sql({"/buddyTest.sql"}) 
 	@DisplayName("register user")
 	public void registerUserTest() {
-		buddyService.addUser("Sam", "TODD12", "s.todd@gmail.com", "123", 0.00);
-		User findUser = buddyService.findUser("Sam", "TODD12");
+	
+		String hashPassword = passwordEncoder.encode((CharSequence) "123");
+		String hashMail = passwordEncoder.encode( (CharSequence) "sam@mail.com");
+		User creatUser = new User("Sam", "TODD12", hashMail, hashPassword, 0.00, null);
+		
+		userDAO.save(creatUser);
+
+		User findUser =userDAO.getUserByFirstnameAndLastname("Sam", "TODD12");
+		
 		assertEquals("Sam", findUser.getFirstname());
 		assertEquals("TODD12", findUser.getLastname());
 	}
 	
 	@Test
+	@Sql({"/buddyTest.sql"}) 
 	@DisplayName("payIn")
 	public void PayInUserTest() {
+		
 		buddyService.addUser("Sam", "TODD1", "s.todd@gmail.com", "123", 0.00);
+		
 		User findUser = buddyService.findUser("Sam", "TODD1");
 		int userId = findUser.getId();
+		
 		buddyService.payIn(userId, 50.00);
+		
+		
+		
 		User findUserPayIn = buddyService.findUser("Sam", "TODD1");
+		
 		assertEquals(50, findUserPayIn.getWallet());
 	}
 	
 	
 	@Test
+	@Sql({"/buddyTest.sql"}) 
 	@DisplayName("payOut")
 	public void PayOutUserTest() {
 		buddyService.addUser("Sam", "TODD123", "s.todd@gmail.com", "123", 0.00);
@@ -69,6 +86,7 @@ public class BuddyTest {
 	}
 	
 	@Test
+	@Sql({"/buddyTest.sql"}) 
 	@DisplayName("add connexion")
 	public void addConnexionTest() {
 		User user1 = buddyService.addUser("Sam", "TODD124", "s.todd@gmail.com", "123", 0.00);
@@ -81,6 +99,7 @@ public class BuddyTest {
 	}
 	
 	@Test
+	@Sql({"/buddyTest.sql"}) 
 	@DisplayName("get list connexion")
 	public void getConnectionListTest() {
 		User user1 = buddyService.addUser("Sam", "TODD124", "s.todd@gmail.com", "123", 0.00);
@@ -101,6 +120,7 @@ public class BuddyTest {
 	}
 	
 	@Test
+	@Sql({"/buddyTest.sql"}) 
 	@DisplayName("add transaction")
 	public void addTransactionTest() {
 		User user1 = buddyService.addUser("Sam", "TODD56", "s.todd@gmail.com", "123", 50.00);
@@ -114,6 +134,7 @@ public class BuddyTest {
 	}
 	
 	@Test
+	@Sql({"/buddyTest.sql"}) 
 	@DisplayName("get transaction list")
 	public void getTransactionListTest() {
 		User user1 = buddyService.addUser("Sam", "TODD56", "s.todd@gmail.com", "123", 50.00);

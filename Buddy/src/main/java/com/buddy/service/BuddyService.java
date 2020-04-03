@@ -72,7 +72,7 @@ public class BuddyService {
 		Double newWallet = user.getWallet() + amount;
 		user.setWallet(newWallet);
 		userDAO.save(user);
-		BankAccount  payIn = new BankAccount(userId, amount, "payIn");
+		BankAccount  payIn = new BankAccount(userId, amount, true);
 		bankAccountDAO.save(payIn);
 		return user;
 	}
@@ -83,7 +83,7 @@ public class BuddyService {
 		Double newWallet = user.getWallet() + amountOut;
 		user.setWallet(newWallet);
 		userDAO.save(user);
-		BankAccount  payIn = new BankAccount(userId, amount, "payOut");
+		BankAccount  payIn = new BankAccount(userId, amount, false);
 		bankAccountDAO.save(payIn);
 		return user;
 	}

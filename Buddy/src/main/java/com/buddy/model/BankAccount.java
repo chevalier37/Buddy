@@ -8,10 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "bank_account")
+@Table(name = "tranfert_bank_account")
 public class BankAccount {
 
-	public BankAccount(int user_id, Double amount, String type) {
+	public BankAccount(int user_id, Double amount, Boolean type) {
 		this.user_id = user_id;
 		this.amount = amount;
 		this.type = type;
@@ -31,7 +31,7 @@ public class BankAccount {
     private Double amount;
 	
 	@Column(name = "type", nullable = false)
-    private String type;
+    private Boolean type;
 
 	public int getId() {
 		return id;
@@ -53,11 +53,11 @@ public class BankAccount {
 		this.amount = amount;
 	}
 
-	public String getType() {
+	public Boolean getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(Boolean type) {
 		this.type = type;
 	}
 

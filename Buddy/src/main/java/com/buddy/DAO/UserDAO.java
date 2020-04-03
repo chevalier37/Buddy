@@ -1,8 +1,10 @@
 package com.buddy.DAO;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.buddy.model.User;
@@ -15,5 +17,7 @@ public interface UserDAO extends JpaRepository<User, Integer>{
 	
 	@Query("FROM User WHERE email = ?1")
 	public User getUserByEmail(String mail);
+	
+	
 
 }
