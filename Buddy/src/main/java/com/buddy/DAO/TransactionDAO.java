@@ -17,5 +17,6 @@ public interface TransactionDAO extends JpaRepository<Transaction, Integer>{
 	
 	@Query("SELECT t FROM Transaction t INNER JOIN User u ON t.to_id = u.id WHERE t.from_id = ?1")
 	public List<Transaction> getTransactionList(int fromId);
-
+	
+	
 }

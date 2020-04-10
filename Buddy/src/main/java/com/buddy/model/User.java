@@ -3,11 +3,12 @@ package com.buddy.model;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,16 +16,18 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User {
 	
+	
+	
 	public User() {
 	}
 
-	public User(String firstname, String lastname, String email, String password, Double wallet, List<User> connection) {
+	public User(String firstname, String lastname, String email, String password, Double wallet, List<User> listConnection) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.password = password;
 		this.wallet = wallet;
-		this.connection = connection;
+		this.listConnection = listConnection;
 	}
 
 	@Id
@@ -46,19 +49,18 @@ public class User {
 	@Column(name = "wallet")
     private Double wallet;
 	
-	@OneToMany(mappedBy = "connection")
-    private List<User> connection;
+	@OneToMany()
+    private List<User> listConnection;
 	
 	
-	public List<User> getConnection() {
-		return connection;
+	
+	public List<User> getListConnection() {
+		return listConnection;
 	}
 
-
-	public void setConnection(List<User> connection) {
-		this.connection = connection;
+	public void setListconnection(List<User> listConnection) {
+		this.listConnection = listConnection;
 	}
-
 
 	public int getId() {
 		return id;

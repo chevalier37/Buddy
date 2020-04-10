@@ -10,15 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "connections")
 public class Connection {
-
-	public Connection(int from_id, int to_id) {
-		this.from_id = from_id;
-		this.to_id = to_id;
-	}
 	
-	public Connection() {
-	}
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,8 +21,20 @@ public class Connection {
 	@Column(name = "to_id", nullable = false)
     private int to_id;
 
+	public Connection(int from_id, int to_id) {
+		this.from_id = from_id;
+		this.to_id = to_id;
+	}
+	
+	public Connection() {
+	}
+
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getFrom_id() {
@@ -47,11 +51,6 @@ public class Connection {
 
 	public void setTo_id(int to_id) {
 		this.to_id = to_id;
-	}
-
-	@Override
-	public String toString() {
-		return "Connection [id=" + id + ", from_id=" + from_id + ", to_id=" + to_id + "]";
 	}
 	
 	

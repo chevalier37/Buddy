@@ -15,6 +15,9 @@ public interface ConnectionDAO extends JpaRepository<Connection, Integer>{
 	@Query("FROM Connection WHERE from_id = ?1 AND to_id =	?2 ")
 	public Connection getConnectionByFromIdAndToId(int fromId, int toId);
 	
+	//@Query("SELECT u FROM User u INNER JOIN Connection c ON c.to_id = u.id WHERE c.from_id = ?1")
+	//public List<User> getConnectionList(int fromId);
+	
 	@Query("SELECT u FROM User u INNER JOIN Connection c ON c.to_id = u.id WHERE c.from_id = ?1")
 	public List<User> getConnectionList(int fromId);
 

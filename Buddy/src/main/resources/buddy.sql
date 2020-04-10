@@ -29,7 +29,6 @@ CREATE TABLE `connections` (
   `from_id` int NOT NULL,
   `to_id` int NOT NULL,
   PRIMARY KEY (`from_id`,`to_id`),
-  UNIQUE KEY `unique` (`from_id`,`to_id`),
   KEY `to_id1_idx` (`to_id`),
   KEY `from_id1_idx` (`from_id`),
   CONSTRAINT `from_id1` FOREIGN KEY (`from_id`) REFERENCES `user` (`id`),
