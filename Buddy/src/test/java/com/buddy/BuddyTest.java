@@ -29,16 +29,11 @@ import com.buddy.model.BankAccount;
 import com.buddy.model.Connection;
 import com.buddy.model.Transaction;
 import com.buddy.model.User;
-import com.buddy.service.BuddyService;
-import com.buddy.service.UserDAOImpl;
 
 
 @SpringBootTest
 @TestPropertySource(locations="classpath:applicationTest.properties")
 public class BuddyTest {
-	
-	@Autowired
-	private  BuddyService buddyService;
 	
 	@Autowired
 	private  BankAccountDAO bankAccountDAO;

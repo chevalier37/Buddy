@@ -12,15 +12,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.buddy.service.BuddyService;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
 
 @SpringBootApplication
 @EnableEncryptableProperties
 @EnableJpaRepositories
-@PropertySource(name="EncryptedProperties", value = "classpath:application.properties")
-
 public class BuddyApplication {
 	
 	public static void main(String[] args) {
