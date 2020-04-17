@@ -1,5 +1,7 @@
 package com.buddy.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "transaction")
-public class Transaction {
+public class Transaction implements Serializable{
 	
 	public Transaction(int from_id, int to_id, Double amount, String description) {
 		this.from_id = from_id;
@@ -79,9 +81,6 @@ public class Transaction {
 		return "Transaction [id=" + id + ", from_id=" + from_id + ", to_id=" + to_id + ", amount=" + amount
 				+ ", description=" + description + "]";
 	}
-	
-	
-	
-	
+
 
 }

@@ -10,25 +10,33 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
 public class User implements Serializable{
-	
-	
-	
+
 	public User() {
 	}
 
-	public User(String firstname, String lastname, String email, String password, Double wallet, List<User> listConnection) {
+	public User(String firstname, String lastname, String email, String password, Double wallet, List<User> myFriends,
+			List<User> friendsOf, List<Transaction> transactionOut, List<Transaction> transactionIn,
+			List<BankAccount> transfertBankAccount) {
+		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.password = password;
 		this.wallet = wallet;
-		this.listConnection = listConnection;
+		this.myFriends = myFriends;
+		this.friendsOf = friendsOf;
+		this.transactionOut = transactionOut;
+		this.transactionIn = transactionIn;
+		this.transfertBankAccount = transfertBankAccount;
 	}
 
 	@Id
@@ -50,17 +58,89 @@ public class User implements Serializable{
 	@Column(name = "wallet")
     private Double wallet;
 	
-	@OneToMany()
-    private List<User> listConnection;
+	@ManyToMany
+	@JoinTable(
+			  name = "connections", 
+			  joinColumns = @JoinColumn(name = "from_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "to_id"))
+    private List<User> myFriends;
 	
+	@ManyToMany
+	@JoinTable(
+			  name = "connections", 
+			  joinColumns = @JoinColumn(name = "to_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "from_id"))
+    private List<User> friendsOf;
 	
+	@OneToMany
+	@JoinTable(
+			  name = "transaction", 
+			  joinColumns = @JoinColumn(name = "from_id"))
+    private List<Transaction> transactionOut;	
 	
-	public List<User> getListConnection() {
-		return listConnection;
+	@OneToMany
+	@JoinTable(
+			  name = "transaction", 
+			  joinColumns = @JoinColumn(name = "to_id"))
+    private List<Transaction> transactionIn;
+	
+	@OneToMany
+	@JoinTable(
+			  name = "tranfert_bank_account", 
+			  joinColumns = @JoinColumn(name = "user_id"))
+    private List<BankAccount> transfertBankAccount;
+
+
+	public List<Transaction> getTransactionOut() {
+		return transactionOut;
 	}
 
-	public void setListconnection(List<User> listConnection) {
-		this.listConnection = listConnection;
+
+
+	public void setTransactionOut(List<Transaction> transactionOut) {
+		this.transactionOut = transactionOut;
+	}
+
+
+
+	public List<Transaction> getTransactionIn() {
+		return transactionIn;
+	}
+
+
+
+	public void setTransactionIn(List<Transaction> transactionIn) {
+		this.transactionIn = transactionIn;
+	}
+
+
+
+	public List<BankAccount> getTransfertBankAccount() {
+		return transfertBankAccount;
+	}
+
+
+
+	public void setTransfertBankAccount(List<BankAccount> transfertBankAccount) {
+		this.transfertBankAccount = transfertBankAccount;
+	}
+
+
+
+	public List<User> getMyFriends() {
+		return myFriends;
+	}
+
+	public void setMyFriends(List<User> myFriends) {
+		this.myFriends = myFriends;
+	}
+
+	public List<User> getFriendsOf() {
+		return friendsOf;
+	}
+
+	public void setFriendsOf(List<User> friendsOf) {
+		this.friendsOf = friendsOf;
 	}
 
 	public int getId() {
