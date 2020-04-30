@@ -13,9 +13,11 @@ import javax.persistence.Table;
 @Table(name = "transaction")
 public class Transaction implements Serializable{
 	
-	public Transaction(int from_id, int to_id, Double amount, String description) {
-		this.from_id = from_id;
-		this.to_id = to_id;
+	private static final long serialVersionUID = 5980899126871598583L;
+
+	public Transaction(int fromId, int toId, Double amount, String description) {
+		this.fromId = fromId;
+		this.toId = toId;
 		this.amount = amount;
 		this.description = description;
 	}
@@ -29,10 +31,10 @@ public class Transaction implements Serializable{
 	private int id;
 	
 	@Column(name = "from_id", nullable = false)
-    private int from_id;
+    private int fromId;
 	
 	@Column(name = "to_id", nullable = false)
-    private int to_id;
+    private int toId;
 	
 	@Column(name = "amount", nullable = false)
     private Double amount;
@@ -44,20 +46,20 @@ public class Transaction implements Serializable{
 		return id;
 	}
 
-	public int getFrom_id() {
-		return from_id;
+	public int getFromId() {
+		return fromId;
 	}
 
-	public void setFrom_id(int from_id) {
-		this.from_id = from_id;
+	public void setFromId(int fromId) {
+		this.fromId = fromId;
 	}
 
-	public int getTo_id() {
-		return to_id;
+	public int getToId() {
+		return toId;
 	}
 
-	public void setTo_id(int to_id) {
-		this.to_id = to_id;
+	public void setToId(int toId) {
+		this.toId = toId;
 	}
 
 	public Double getAmount() {
@@ -78,7 +80,7 @@ public class Transaction implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Transaction [id=" + id + ", from_id=" + from_id + ", to_id=" + to_id + ", amount=" + amount
+		return "Transaction [id=" + id + ", from_id=" + fromId + ", to_id=" + toId + ", amount=" + amount
 				+ ", description=" + description + "]";
 	}
 

@@ -1,15 +1,14 @@
-package com.buddy.DAO;
-
+package com.buddy.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.buddy.model.BankAccount;
+import com.buddy.model.Transaction;
 
 
 @Transactional
 @Repository
-public interface BankAccountDAO extends JpaRepository<BankAccount, Integer>{
+public interface TransactionDAO extends JpaRepository<Transaction, Integer>{
 
 }

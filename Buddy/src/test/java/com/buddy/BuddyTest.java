@@ -18,9 +18,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.buddy.DAO.BankAccountDAO;
-import com.buddy.DAO.TransactionDAO;
-import com.buddy.DAO.UserDAO;
+import com.buddy.dao.BankAccountDAO;
+import com.buddy.dao.TransactionDAO;
+import com.buddy.dao.UserDAO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
 import com.buddy.model.User;

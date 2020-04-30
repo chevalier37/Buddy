@@ -1,4 +1,4 @@
-package com.buddy.DAO;
+package com.buddy.dao;
 
 
 

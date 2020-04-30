@@ -13,8 +13,10 @@ import javax.persistence.Table;
 @Table(name = "tranfert_bank_account")
 public class BankAccount implements Serializable{
 
-	public BankAccount(int user_id, Double amount, Boolean type) {
-		this.user_id = user_id;
+	private static final long serialVersionUID = 3476977421849802857L;
+
+	public BankAccount(int userId, Double amount, Boolean type) {
+		this.userId = userId;
 		this.amount = amount;
 		this.type = type;
 	}
@@ -27,7 +29,7 @@ public class BankAccount implements Serializable{
 	private int id;
 	
 	@Column(name = "user_id", nullable = false)
-    private int user_id;
+    private int userId;
 	
 	@Column(name = "amount", nullable = false)
     private Double amount;
@@ -39,12 +41,12 @@ public class BankAccount implements Serializable{
 		return id;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public Double getAmount() {
@@ -65,7 +67,7 @@ public class BankAccount implements Serializable{
 
 	@Override
 	public String toString() {
-		return "BankAccount [id=" + id + ", user_id=" + user_id + ", amount=" + amount + ", type=" + type + "]";
+		return "BankAccount [id=" + id + ", user_id=" + userId + ", amount=" + amount + ", type=" + type + "]";
 	}
 	
 
